@@ -2,7 +2,6 @@
   <div class="branchesSelector">
     <div class="branchSelector" v-for="branch in branches" :key="branch.name">
       <input type="radio" name="branch" :value="branch.name" v-model="branchSelected" @change="$emit('selectBranch', branch)"> {{branch.name}}
-      {{branchSelected}}
     </div>
   </div>
 </template>

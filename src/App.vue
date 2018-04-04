@@ -1,36 +1,37 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <branchesSelector :repoData="repoData" @selectBranch="getCommits"/>
+    <branchesSelector :repoData="repoData" @selectBranch="getRepoInfo"/>
+    <list :info="repoData"/>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 
-import branchesSelector from './components/branchesSelector';
+import branchesSelector from "./components/branchesSelector";
+import list from "./components/list";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     branchesSelector,
+    list
   },
-  data(){
-    return{
+  data() {
+    return {
       repoData: {
-        owner: 'Nixyn',
-        repo: 'list-items'
+        owner: "Nixyn",
+        repo: "list-items",
+        sha: ""
       },
-      commits: []
-    }
+      repoToGetCommits: {}
+    };
   },
-  methods:{
-    getCommits(branch){
-      let commitsUrl = branch.commit.url;
-      alert();
-      axios.get(commitsUrl)
-      .then(commits =>console.log('inCommits', commits))
-      .catch(err => console.error(err));
+  methods: {
+    getRepoInfo(branch) {
+      this.repoData.sha = branch.commit.sha;
+      console.log(this.repoData);
     }
   }
 };
